@@ -55,6 +55,10 @@ return packer.startup(function(use)
 
   -- Git
   use "lewis6991/gitsigns.nvim"
+  use "f-person/git-blame.nvim"
+
+  -- Terminal integration
+  use "akinsho/toggleterm.nvim"
 
   -- cmp
   use "hrsh7th/nvim-cmp"
@@ -81,6 +85,7 @@ return packer.startup(function(use)
   use "mhartington/formatter.nvim"
   use "jose-elias-alvarez/null-ls.nvim"
   use "ray-x/lsp_signature.nvim"
+  use "SmiteshP/nvim-navic"
   use "https://git.sr.ht/~whynothugo/lsp_lines.nvim"
   use "lvimuser/lsp-inlayhints.nvim"
 
@@ -105,6 +110,12 @@ return packer.startup(function(use)
   -- Editing Support
   use "windwp/nvim-autopairs"
 
+  -- File Manager 
+  use "kyazdani42/nvim-web-devicons"
+  use "kyazdani42/nvim-tree.lua"
+  -- use "luukvbaal/nnn.nvim" -- Might try later
+
+ 
   -- Color
   use "NvChad/nvim-colorizer.lua"
 
@@ -132,5 +143,3 @@ return packer.startup(function(use)
     require("packer").sync()
   end
 end)
-
-

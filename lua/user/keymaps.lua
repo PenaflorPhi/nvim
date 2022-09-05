@@ -22,6 +22,16 @@ vim.g.maplocalleader = " "
 keymap("n", "ff", "<cmd>Telescope find_files<CR>", opts)
 keymap("n", "fg", "<cmd>Telescope live_grep<CR>", opts)
 
+-- Nvim-Tree
+keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+
+-- Comment
+keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.current_linewise()<CR>", opts)
+keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise_op(vim.fn.visualmode())<CR>', opts)
+
+-- Format
+--
+
 -- Normal --
 -- Better window navigation
 keymap("n", "<C-Left>", "<C-w>h", opts)

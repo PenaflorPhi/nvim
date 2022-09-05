@@ -176,6 +176,7 @@ cmp.setup {
     end,
   },
   sources = {
+    { name = "luasnip", group_index = 2 },
     {
       name = "buffer",
       group_index = 2,
@@ -201,7 +202,6 @@ cmp.setup {
       group_index = 2,
     },
     { name = "nvim_lua", group_index = 2 },
-    { name = "luasnip", group_index = 2 },
     { name = "emoji", group_index = 2 },
     -- { name = "spell"},
     -- { name = "latex_symbols" },

@@ -41,7 +41,8 @@ local options = {
   linebreak = true,                        -- It allows prints a new line instead of cutting a word halfway.
   spell = true,                            -- Enables spellchecking.
   spelllang="en_us,es",                    -- Use English and Spanish dictionaries.
-  colorcolumn = "64,80",                   -- Highlights the columns 64 and 80.
+  -- colorcolumn = "64,80",                   -- Highlights the columns 64 and 80.
+  syntax,
 }
 
 vim.opt.fillchars = vim.opt.fillchars + 'eob: '
@@ -64,3 +65,9 @@ vim.filetype.add {
 }
 
 vim.opt.shortmess:append "c"
+
+vim.api.nvim_command([[
+  augroup LaTeXSpell
+  autocmd BufEnter *.tex :syntax on
+  autocmd BufEnter *.tex :set spelllang
+]])
