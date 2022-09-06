@@ -11,6 +11,7 @@ end
 local servers = {
   "sumneko_lua",
   "pyright",
+  "yamlls",
   "bashls",
   "clangd",
   "rust_analyzer",
@@ -49,7 +50,6 @@ for _, server in pairs(servers) do
   }
 
   server = vim.split(server, "@")[1]
-
   if server == "sumneko_lua" then
     local l_status_ok, lua_dev = pcall(require, "lua-dev")
     if not l_status_ok then
@@ -71,27 +71,6 @@ for _, server in pairs(servers) do
     goto continue
   end
 
-  if server == "pyright" then
-    local pyright_opts = require "user.lsp.settings.pyright"
-    opts = vim.tbl_deep_extend("force", pyright_opts, opts)
-  end
-
-  if server == "rust_analyzer" then
-    local rust_opts = require "user.lsp.settings.rust"
-    -- opts = vim.tbl_deep_extend("force", rust_opts, opts)
-    local rust_tools_status_ok, rust_tools = pcall(require, "rust-tools")
-    if not rust_tools_status_ok then
-      return
-    end
-
-    rust_tools.setup(rust_opts)
-    goto continue
-  end
-
   lspconfig[server].setup(opts)
   ::continue::
 end
-
--- TODO: add something to installer later
--- require("lspconfig").motoko.setup {}
-

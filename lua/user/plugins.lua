@@ -54,27 +54,24 @@ return packer.startup(function(use)
   use "christianchiarulli/lua-dev.nvim"
 
   -- Git
-  use "lewis6991/gitsigns.nvim"
-  use "f-person/git-blame.nvim"
+  use "lewis6991/gitsigns.nvim" -- Works
+  use "f-person/git-blame.nvim" -- Works
 
   -- Terminal integration
-  use "akinsho/toggleterm.nvim"
+  use "akinsho/toggleterm.nvim" -- Works
 
   -- cmp
-  use "hrsh7th/nvim-cmp"
-  use "hrsh7th/cmp-nvim-lsp"
-  use "hrsh7th/cmp-nvim-lua"
-  use "hrsh7th/cmp-buffer"
-  use "hrsh7th/cmp-path"
-  use "hrsh7th/cmp-cmdline"
+  use "hrsh7th/nvim-cmp"  -- Works
+  use "hrsh7th/cmp-nvim-lsp" -- Works
+  use "hrsh7th/cmp-nvim-lua" -- ??
+  use "hrsh7th/cmp-buffer" -- Works
+  use "hrsh7th/cmp-path" -- Works
   use "hrsh7th/cmp-emoji"
-  -- use "f3fora/cmp-spell"
-  -- use "kdheepak/cmp-latex-symbols"
+  use "saadparwaiz1/cmp_luasnip"
+  use "hrsh7th/cmp-cmdline"  -- Not sure what this does.
 
   -- Snippets
-  use "L3MON4D3/LuaSnip" --snippet engine. Required (I think) for cmp.
-  use "saadparwaiz1/cmp_luasnip"
-  use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
+  use "L3MON4D3/LuaSnip"  -- Works
 
   -- LSP
   use "neovim/nvim-lspconfig"
@@ -115,7 +112,6 @@ return packer.startup(function(use)
   use "kyazdani42/nvim-tree.lua"
   -- use "luukvbaal/nnn.nvim" -- Might try later
 
- 
   -- Color
   use "NvChad/nvim-colorizer.lua"
 
@@ -135,6 +131,19 @@ return packer.startup(function(use)
     run = "cd app && npm install",
     ft  = "markdown",
     cmd = {'MarkdownPreview', 'MarkdownPreviewToggle'},
+  }
+
+  -- Statusline
+  use "nvim-lualine/lualine.nvim"
+  use "yamatsum/nvim-cursorline"
+  use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons'}
+
+  --Statup
+  use {
+    'goolord/alpha-nvim',
+    config = function ()
+        require'alpha'.setup(require'alpha.themes.dashboard'.config)
+    end
   }
 
   -- Automatically set up your configuration after cloning packer.nvim

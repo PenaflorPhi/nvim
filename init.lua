@@ -36,3 +36,11 @@ require("user.autopairs")
 
 -- Comment
 require("user.comment")
+
+-- Statusline
+require "user.lualine"
+require "user.nvim-cursorline"
+require("bufferline").setup{}
+
+-- Startup
+require("user.alpha")

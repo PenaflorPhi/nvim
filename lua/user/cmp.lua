@@ -164,19 +164,16 @@ cmp.setup {
       -- NOTE: order matters
       vim_item.menu = ({
         buffer = "[Buffer]",
-        path = "[Path]",
-        nvim_lsp = "[Nvim LSP]",
-        nvim_lua = "[Nvim Lua]",
         luasnip = "[LuaSnip]",
+        nvim_lua = "[Nvim Lua]",
+        nvim_lsp = "[Nvim LSP]",
+        path = "[Path]",
         emoji = "",
-        -- latex_symbols = "[LaTeX]",
-        -- spell = "[Dictionary]",
       })[entry.source.name]
       return vim_item
     end,
   },
   sources = {
-    { name = "luasnip", group_index = 2 },
     {
       name = "buffer",
       group_index = 2,
@@ -186,7 +183,8 @@ cmp.setup {
         end
       end,
     },
-    { name = "path", group_index = 2 },
+    { name = "luasnip", group_index = 2 },
+    { name = "nvim_lua", group_index = 2 },
     {
       name = "nvim_lsp",
       filter = function(entry, ctx)
@@ -201,10 +199,8 @@ cmp.setup {
       end,
       group_index = 2,
     },
-    { name = "nvim_lua", group_index = 2 },
+    { name = "path", group_index = 2 },
     { name = "emoji", group_index = 2 },
-    -- { name = "spell"},
-    -- { name = "latex_symbols" },
   },
   sorting = {
     priority_weight = 2,

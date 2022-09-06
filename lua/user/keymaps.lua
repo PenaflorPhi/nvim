@@ -83,3 +83,5 @@ keymap("n", "<C-e>", ":syntax spell toplevel<CR>", opts)
 keymap("n", "<C-s>", "]sz=",opts)
 keymap("n", "<C-a>", "zg",opts)
 keymap("n", "<C-u>", "zug",opts)
+
+vim.cmd('map <Leader>f :lua vim.lsp.buf.formatting_sync(nil, 10000)<CR>')
