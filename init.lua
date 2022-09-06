@@ -5,6 +5,9 @@ require "user.plugins"
 require "user.colorizer"
 require "user.navic"
 
+-- Motion
+require "user.hop"
+
 -- Git
 require "user.gitsigns"
 require "user.git-blame"
@@ -40,7 +43,7 @@ require("user.comment")
 -- Statusline
 require "user.lualine"
 require "user.nvim-cursorline"
-require("bufferline").setup{}
+require("user.bufferline")
 
 -- Startup
 require("user.alpha")

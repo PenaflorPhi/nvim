@@ -85,3 +85,7 @@ keymap("n", "<C-a>", "zg",opts)
 keymap("n", "<C-u>", "zug",opts)
 
 vim.cmd('map <Leader>f :lua vim.lsp.buf.formatting_sync(nil, 10000)<CR>')
+
+-- Buffers
+keymap("n", "<leader>c", "<cmd>bd!<CR>",opts)
+

@@ -66,8 +66,8 @@ vim.filetype.add {
 
 vim.opt.shortmess:append "c"
 
-vim.api.nvim_command([[
-  augroup LaTeXSpell
-  autocmd BufEnter *.tex :syntax on
-  autocmd BufEnter *.tex :set spelllang
-]])
+-- vim.api.nvim_command([[
+--   augroup LaTeXSpell
+--   autocmd BufEnter *.tex :syntax on
+--   autocmd BufEnter *.tex :set spelllang
+-- ]])

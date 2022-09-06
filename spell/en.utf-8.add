@@ -217,3 +217,9 @@ LuaSnip
 #nd
 true
 #-a
+LaTeX
+TikZ
+ConTeXt
+XeLaTeX
+LuaLaTeX
+pdfLaTeX
