@@ -50,6 +50,7 @@ for _, server in pairs(servers) do
   }
 
   server = vim.split(server, "@")[1]
+
   if server == "sumneko_lua" then
     local l_status_ok, lua_dev = pcall(require, "lua-dev")
     if not l_status_ok then

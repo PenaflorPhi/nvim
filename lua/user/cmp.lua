@@ -169,6 +169,7 @@ cmp.setup {
         nvim_lsp = "[Nvim LSP]",
         path = "[Path]",
         emoji = "",
+        cmdline = "[cmd]",
       })[entry.source.name]
       return vim_item
     end,
@@ -245,10 +246,26 @@ cmp.setup {
 require'cmp'.setup.cmdline(':', {
   sources = {
     { name = 'cmdline' }
-  }
+  },
 })
 require'cmp'.setup.cmdline('/', {
   sources = {
     { name = 'buffer' }
   }
 })
+
+require "cmp".setup {
+  sorting = {
+    comparators = {
+      compare.score,
+      compare.order,
+      compare.recently_used,
+      compare.offset,
+      compare.exact,
+      compare.locality,
+      compare.kind,
+      compare.sort_text,
+      compare.length,
+    },
+  },
+}
