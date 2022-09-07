@@ -14,11 +14,11 @@ configs.setup {
     -- include_match_words = false
   },
   highlight = {
-    -- use_languagetree = true,
+    use_languagetree = true,
     enable = true, -- false will disable the whole extension
     -- disable = { "css", "html" }, -- list of language that will be disabled
     -- disable = { "css", "markdown" }, -- list of language that will be disabled
-    disable = { "markdown" }, -- list of language that will be disabled
+    -- disable = { "latex", "tex" }, -- list of language that will be disabled
     -- additional_vim_regex_highlighting = true,
   },
   autopairs = {
@@ -45,7 +45,7 @@ configs.setup {
       "Purple",
       "Cyan",
     },
-    disable = { "html" },
+    -- disable = { "html" },
   },
   textobjects = {
     select = {
