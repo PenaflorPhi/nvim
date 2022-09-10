@@ -175,17 +175,7 @@ cmp.setup {
     end,
   },
   sources = {
-    {
-      name = "buffer",
-      group_index = 2,
-      filter = function(entry, ctx)
-        if not contains(buffer_fts, ctx.prev_context.filetype) then
-          return true
-        end
-      end,
-    },
     { name = "luasnip", group_index = 2 },
-    { name = "nvim_lua", group_index = 2 },
     {
       name = "nvim_lsp",
       filter = function(entry, ctx)
@@ -200,24 +190,33 @@ cmp.setup {
       end,
       group_index = 2,
     },
+    { name = 'nvim_lsp_signature_help' },
+    { name = "nvim_lua", group_index = 2 },
+    {
+      name = "buffer",
+      group_index = 2,
+      filter = function(entry, ctx)
+        if not contains(buffer_fts, ctx.prev_context.filetype) then
+          return true
+        end
+      end,
+    },
     { name = "path", group_index = 2 },
     { name = "emoji", group_index = 2 },
   },
   sorting = {
     priority_weight = 2,
     comparators = {
-      -- require("copilot_cmp.comparators").prioritize,
-      -- require("copilot_cmp.comparators").score,
+      compare.order,
+      compare.score,
+      compare.recently_used,
       compare.offset,
       compare.exact,
       -- compare.scopes,
-      compare.score,
-      compare.recently_used,
       compare.locality,
       -- compare.kind,
       compare.sort_text,
       compare.length,
-      compare.order,
       -- require("copilot_cmp.comparators").prioritize,
       -- require("copilot_cmp.comparators").score,
     },
@@ -254,18 +253,3 @@ require'cmp'.setup.cmdline('/', {
   }
 })
 
-require "cmp".setup {
-  sorting = {
-    comparators = {
-      compare.score,
-      compare.order,
-      compare.recently_used,
-      compare.offset,
-      compare.exact,
-      compare.locality,
-      compare.kind,
-      compare.sort_text,
-      compare.length,
-    },
-  },
-}

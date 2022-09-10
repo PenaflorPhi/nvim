@@ -89,11 +89,12 @@ local function lsp_keymaps(bufnr)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gI", "<cmd>Telescope lsp_implementations<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 	-- vim.cmd [[ command! Format execute 'lua vim.lsp.buf.format({ async = true })' ]]
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<M-f>", "<cmd>Format<cr>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "<M-a>", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "ga", ":lua vim.lsp.buf.code_action()<cr>", opts) -- Code action
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts) -- Code diagnostic
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gn", ":lua vim.diagnostic.goto_next()<CR>", opts) -- Go to next diagnostic
+  vim.api.nvim_buf_set_keymap(bufnr, "n", "gN", ":lua vim.diagnostic.goto_prev()<CR>", opts) -- Go to previous diagnostic
 end
 
 M.on_attach = function(client, bufnr)
@@ -117,7 +118,7 @@ M.on_attach = function(client, bufnr)
 	end
 
 	if client.name == "clangd" then
-    client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_formatting = false
 	end
 end
 

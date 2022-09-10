@@ -65,6 +65,7 @@ vim.filetype.add {
 }
 
 vim.opt.shortmess:append "c"
+vim.g.tex_flavor="latex"
 
 -- vim.api.nvim_command([[
 --   augroup LaTeXSpell

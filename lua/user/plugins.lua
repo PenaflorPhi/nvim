@@ -69,6 +69,7 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-emoji"
   use "saadparwaiz1/cmp_luasnip"
   use "hrsh7th/cmp-cmdline"  -- Not sure what this does.
+  use "hrsh7th/cmp-nvim-lsp-signature-help"
 
   -- Snippets
   use "L3MON4D3/LuaSnip"  -- Works
@@ -100,7 +101,6 @@ return packer.startup(function(use)
 
 
   use "lukas-reineke/indent-blankline.nvim"
-  -- use "yaocccc/nvim-hlchunk" -- Highlight indent lines in a very cool way, might try later.
 
   -- Comment
   use "numToStr/Comment.nvim"
@@ -149,7 +149,8 @@ return packer.startup(function(use)
 
   -- Motion
   use "phaazon/hop.nvim"
-   
+  -- use "wfxr/minimap.vim" -- Throws an error.
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

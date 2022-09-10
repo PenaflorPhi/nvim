@@ -7,6 +7,7 @@ require "user.navic"
 
 -- Motion
 require "user.hop"
+require "user.minimap"
 
 -- Git
 require "user.gitsigns"
@@ -47,3 +48,7 @@ require("user.bufferline")
 
 -- Startup
 require("user.alpha")
+
+
+-- My commands
+require("user.commands")
