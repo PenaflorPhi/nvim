@@ -1,36 +1,40 @@
-require "user.options"
-require "user.keymaps"
-require "user.colorscheme"
-require "user.plugins"
-require "user.colorizer"
-require "user.navic"
+require("user.options")
+require("user.keymaps")
+require("user.plugins")
+require("user.colorizer")
+require("user.navic")
+require("user.autocommands")
 
 -- Motion
-require "user.hop"
-require "user.minimap"
+require("user.hop")
+require("user.minimap")
+require("user.whichkey")
 
 -- Git
-require "user.gitsigns"
-require "user.git-blame"
+require("user.gitsigns")
+require("user.git-blame")
 
 -- Terminal Integration
-require "user.toggleterm"
+require("user.toggleterm")
 
 -- File Manager
-require "user.nvim-tree"
+require("user.nvim-tree")
 
 -- Completion
-require "user.cmp"
-require "user.lsp"
+require("user.cmp")
+require("user.lsp")
+require("user.lsp-inlayhints")
+require("user.dap")
 
 -- Telescope
-require "user.telescope"
+require("user.telescope")
 
 -- Treesitter
 require("user.treesitter")
 
 -- Colorscheme
-require "user.colorchanger"
+require("user.colorscheme")
+require("user.colorchanger")
 
 -- Indent
 require("user.indent-blankline")
@@ -42,13 +46,13 @@ require("user.autopairs")
 require("user.comment")
 
 -- Statusline
-require "user.lualine"
-require "user.nvim-cursorline"
+require("user.lualine")
+require("user.nvim-cursorline")
 require("user.bufferline")
 
 -- Startup
 require("user.alpha")
 
-
 -- My commands
 require("user.commands")
+require("user.rust-tools")

@@ -5,21 +5,35 @@ end
 
 null_ls.setup({
 	sources = {
+		require("null-ls").builtins.code_actions.refactoring,
 		require("null-ls").builtins.formatting.shfmt, -- Shell
-		require("null-ls").builtins.formatting.stylua, -- Lua
-		-- require("null-ls").builtins.formatting.
-		require("null-ls").builtins.formatting.black.with({
-			extra_args = { "--fast" },
-		}), -- Python
-		require("null-ls").builtins.formatting.latexindent, -- LaTeX
-		-- Diagnostics
 		require("null-ls").builtins.diagnostics.shellcheck, -- Shell
-		require("null-ls").builtins.diagnostics.cppcheck, -- C/C++
+
+		-- Python
 		require("null-ls").builtins.diagnostics.flake8, -- Python
-		-- require("null-ls").builtins.diagnostics.chktex, -- Throws a fuckton of errors with no explanation.
+		require("null-ls").builtins.formatting.black, -- Python
+		require("null-ls").builtins.formatting.isort,
+
+		-- Lua
+		require("null-ls").builtins.formatting.stylua, -- Lua
+		require("null-ls").builtins.completion.luasnip,
+		require("null-ls").builtins.diagnostics.luacheck,
+
+		-- C
+		require("null-ls").builtins.diagnostics.cpplint,
+		require("null-ls").builtins.diagnostics.cppcheck,
+		-- require("null-ls").builtins.diagnostics.clang_check,
 		require("null-ls").builtins.formatting.clang_format.with({
 			extra_args = { "--style=LLVM" },
-		}), -- C/C++
+		}),
+		require("null-ls").builtins.diagnostics.checkmake,
+
+		-- Latex
+		require("null-ls").builtins.formatting.latexindent,
+		require("null-ls").builtins.diagnostics.chktex,
+
+		-- Rust
+		require("null-ls").builtins.formatting.rustfmt,
+		require("null-ls").builtins.formatting.asmfmt,
 	},
 })
-

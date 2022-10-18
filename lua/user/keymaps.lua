@@ -18,19 +18,6 @@ vim.g.maplocalleader = " "
 --   term_mode = "t",
 --   command_mode = "c",
 
--- Telescope
-keymap("n", "ff", "<cmd>Telescope find_files<CR>", opts)
-keymap("n", "fg", "<cmd>Telescope live_grep<CR>", opts)
-
--- Nvim-Tree
-keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
--- Comment
-keymap("n", "<leader>/", "<cmd>lua require('Comment.api').toggle.current_linewise()<CR>", opts)
-keymap("x", "<leader>/", '<ESC><CMD>lua require("Comment.api").toggle.linewise_op(vim.fn.visualmode())<CR>', opts)
-
--- Format
---
 
 -- Normal --
 -- Better window navigation
@@ -38,7 +25,6 @@ keymap("n", "<C-Left>", "<C-w>h", opts)
 keymap("n", "<C-Down>", "<C-w>j", opts)
 keymap("n", "<C-Up>", "<C-w>k", opts)
 keymap("n", "<C-Right>", "<C-w>l", opts)
-
 -- Resize with arrows
 keymap("n", "<C-k>", ":resize -2<CR>", opts)
 keymap("n", "<C-j>", ":resize +2<CR>", opts)
@@ -74,18 +60,6 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
-
-keymap("n", "<C-l>", ":w !TexCompile.sh -P > /dev/null <CR>", opts)
-keymap("n", "<C-k>", ":w !TexCompile.sh -P -Z > /dev/null <CR>", opts)
-keymap("n", "<C-b>", ":w !TexCompile.sh -P -B -Z > /dev/null <CR>", opts)
-keymap("n", "<C-e>", ":syntax spell toplevel<CR>", opts)
-
-keymap("n", "<C-s>", "]sz=",opts)
-keymap("n", "<C-a>", "zg",opts)
-keymap("n", "<C-u>", "zug",opts)
-
-vim.cmd('map <Leader>f :lua vim.lsp.buf.formatting_sync(nil, 10000)<CR>')
-
--- Buffers
-keymap("n", "<leader>c", "<cmd>bd!<CR>",opts)
-
+keymap("n", "<C-s>", "]sz=", opts)
+keymap("n", "<C-a>", "zg", opts)
+keymap("n", "<C-u>", "zug", opts)

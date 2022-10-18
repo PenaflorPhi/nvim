@@ -7,7 +7,7 @@ if not status_cmp_ok then
 	return
 end
 M.capabilities.textDocument.completion.completionItem.snippetSupport = true
-M.capabilities = cmp_nvim_lsp.update_capabilities(M.capabilities)
+M.capabilities = cmp_nvim_lsp.default_capabilities(M.capabilities)
 
 M.setup = function()
 	local icons = require("user.icons")
@@ -93,8 +93,8 @@ local function lsp_keymaps(bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "ga", ":lua vim.lsp.buf.code_action()<cr>", opts) -- Code action
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gl", "<cmd>lua vim.diagnostic.open_float()<CR>", opts) -- Code diagnostic
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gn", ":lua vim.diagnostic.goto_next()<CR>", opts) -- Go to next diagnostic
-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gN", ":lua vim.diagnostic.goto_prev()<CR>", opts) -- Go to previous diagnostic
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "gn", ":lua vim.diagnostic.goto_next()<CR>", opts) -- Go to next diagnostic
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "gN", ":lua vim.diagnostic.goto_prev()<CR>", opts) -- Go to previous diagnostic
 end
 
 M.on_attach = function(client, bufnr)
@@ -114,11 +114,15 @@ M.on_attach = function(client, bufnr)
 	end
 
 	if client.name == "sumneko_lua" then
-		client.resolved_capabilities.document_formatting = false
+		client.server_capabilities.documentFormattingProvider = false
 	end
 
-	if client.name == "clangd" then
-		client.resolved_capabilities.document_formatting = false
+	-- if client.name == "clangd" then
+	-- 	client.server_capabilities.documentFormattingProvider = false
+	-- end
+
+	if client.name == "texlab" then
+		client.server_capabilities.documentFormattingProvider = false
 	end
 end
 

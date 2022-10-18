@@ -168,7 +168,7 @@ cmp.setup {
         nvim_lua = "[Nvim Lua]",
         nvim_lsp = "[Nvim LSP]",
         path = "[Path]",
-        emoji = "",
+        -- emoji = "",
         cmdline = "[cmd]",
       })[entry.source.name]
       return vim_item
@@ -202,7 +202,7 @@ cmp.setup {
       end,
     },
     { name = "path", group_index = 2 },
-    { name = "emoji", group_index = 2 },
+    -- { name = "emoji", group_index = 2 },
   },
   sorting = {
     priority_weight = 2,

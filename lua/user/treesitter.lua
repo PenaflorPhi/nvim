@@ -26,6 +26,8 @@ configs.setup {
   },
   indent = { enable = true, disable = { "python", "css", "rust" } },
   context_commentstring = {
+    bold = true,
+    italic = true,
     enable = true,
     enable_autocmd = false,
   },
