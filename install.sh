@@ -2,7 +2,7 @@
 
 DISTRO=$(cat /etc/os-release | grep "^NAME=" | cut -d '=' -f 2 | tr -d '"')
 USER=$(whoami)
-HOME="/home/$USER/.config"
+HOME="/home/$USER/"
 CONFIG_DIR="$HOME/.config"
 NEOVIM_DIR="$CONFIG_DIR/nvim"
 
