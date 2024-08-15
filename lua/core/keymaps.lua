@@ -22,14 +22,19 @@ vim.api.nvim_set_keymap("n", "<C-Down>", "<C-w>j", opts)
 vim.api.nvim_set_keymap("n", "<C-Up>", "<C-w>k", opts)
 vim.api.nvim_set_keymap("n", "<C-Right>", "<C-w>l", opts)
 
+-- Create a new window
+vim.api.nvim_set_keymap("n", "<leader>n", ":vnew<CR>", opts)
+
 --===================================|
 -- Buffers                           |
 --===================================|
 -- Buffer navigation
 vim.api.nvim_set_keymap("n", "<A-Left>", ":bprev<CR>", opts)
 vim.api.nvim_set_keymap("n", "<A-Right>", ":bnext<CR>", opts)
--- Close buffer
-vim.api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", opts)
+
+-- Opening and Closing buffers
+vim.api.nvim_set_keymap("n", "<C-t>", ":vnew<CR>", opts) -- Create a new buffer
+vim.api.nvim_set_keymap("n", "<C-w>", ":bd<CR>", opts)   -- Delete current buffer
 
 --===================================|
 -- Text Editing                      |
