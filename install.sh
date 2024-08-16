@@ -1,30 +1,33 @@
 #!/bin/sh
 
-DISTRO=$(cat /etc/os-release | grep "^NAME=" | cut -d '=' -f 2 | tr -d '"')
+# Get the distribution name and current user
+DISTRO=$(grep "^NAME=" /etc/os-release | cut -d '=' -f 2 | tr -d '"')
 USER=$(whoami)
-HOME="/home/$USER/"
-CONFIG_DIR="$HOME/.config"
+HOME_DIR="/home/$USER"
+CONFIG_DIR="$HOME_DIR/.config"
 NEOVIM_DIR="$CONFIG_DIR/nvim"
 
-echo "$DISTRO" - "$USER"
+echo "Distro: $DISTRO - User: $USER"
 
-echo "Upgrading packages and installing dependencies"
+# Update and install dependencies based on the distro
+echo "Upgrading packages and installing dependencies..."
 case "$DISTRO" in
 "Debian GNU/Linux")
-    sudo apt update
-    sudo apt upgrade
-    sudo apt install git neovim
+    sudo apt update && sudo apt upgrade -y
+    sudo apt install -y git neovim
     ;;
 "Arch Linux")
-    sudo pacman -Syyyu
-    sudo pacman -S git neovim
+    sudo pacman -Syyu --noconfirm
+    sudo pacman -S --noconfirm git neovim
     ;;
 *)
-    echo "IDK unu"
+    echo "Unsupported distro. IDK unu"
+    exit 1
     ;;
 esac
 
-echo "Creating necessary directories and cloning git repo"
+# Backup existing Neovim config if it exists
+echo "Creating necessary directories and managing existing Neovim config..."
 if [ -d "$NEOVIM_DIR" ]; then
     counter=0
 
@@ -37,13 +40,17 @@ if [ -d "$NEOVIM_DIR" ]; then
 
         if [ ! -d "$NEW_DIR" ]; then
             mv "$NEOVIM_DIR" "$NEW_DIR"
-            echo "Moved neovim configuration to: '$NEW_DIR'"
+            echo "Moved Neovim configuration to: '$NEW_DIR'"
             break
         fi
+
         counter=$(expr "$counter" + 1)
     done
 fi
 
-cd "$CONFIG_DIR" || exit
-git clone https://github.com/PenaflorPhi/nvim
+# Create the config directory and move the current directory into it
+mkdir -p "$CONFIG_DIR"
+mv "$(pwd)" "$NEOVIM_DIR"
 cd "$NEOVIM_DIR" || exit
+
+echo "Setup completed successfully! UwU 🎀"
