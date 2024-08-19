@@ -11,3 +11,4 @@ pkg-config
 unzip
 curl
 doxygen
+pip
