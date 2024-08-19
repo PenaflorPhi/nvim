@@ -12,9 +12,9 @@ echo "Distro: $DISTRO - User: $USER~ UwU 🎀"
 # Update and install dependencies based on the distro 🎉
 echo "Upgrading packages and installing dependencies... nya~ 🛠️"
 case "$DISTRO" in
-    "Debian GNU/Linux" | "Ubuntu"*)
+    "Debian GNU/Linux")
         sudo apt update && sudo apt upgrade -y
-        sudo apt install -y git ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip curl doxygen
+        xargs -a .setup/debian-packages.txt sudo apt install -y
         ;;
     *)
         echo "Unsupported distro... nya~ IDK unu 😿"
@@ -29,6 +29,8 @@ cd neovim || exit
 git checkout stable
 make CMAKE_BUILD_TYPE=Release
 sudo make install
+cd ..
+rm -rf neovim
 
 # Backup existing Neovim config if it exists 🎀
 echo "Creating necessary directories and managing existing Neovim config nya~ 💾"
