@@ -3,9 +3,11 @@ return {
 	config = function()
 		require("conform").setup({
 			formatters_by_ft = {
+				c = { "clang-format" },
 				lua = { "stylua" },
 				python = { "isort", "ruff", "black" },
 				rust = { "rustfmt", lsp_format = "fallback" },
+				go = { "gofmt" },
 				["*"] = { "codespell", "trim_whitespace" },
 			},
 			format_on_save = {

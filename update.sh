@@ -5,7 +5,7 @@
 if [ -d "neovim" ]; then
     cd neovim
     echo "$(pwd)"
-    
+
     # Ensure we are on the 'stable' branch
     git fetch --all
     git checkout stable || git checkout -b stable origin/stable
@@ -15,7 +15,7 @@ else
     git clone https://github.com/neovim/neovim.git
     cd neovim
     echo "$(pwd)"
-    
+
     # Check out the stable branch
     git checkout stable || git checkout -b stable origin/stable
     git pull
