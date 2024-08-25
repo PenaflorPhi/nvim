@@ -8,6 +8,7 @@ return {
 			javascript = { "eslint_d" },
 			python = { "ruff", "pylint" },
 			go = { "golangcilint" },
+			sql = { "sqlfluff" },
 		}
 	end,
 }
