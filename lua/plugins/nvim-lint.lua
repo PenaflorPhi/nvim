@@ -3,8 +3,8 @@ return {
 	config = function()
 		require("lint").linters_by_ft = {
 			c = { "clangtidy" },
-			css = { "eslint_d" },
-			html = { "eslint_d" },
+			css = { "stylelint" },
+			html = { "htmlhint" },
 			javascript = { "eslint_d" },
 			python = { "ruff", "pylint" },
 			go = { "golangcilint" },
