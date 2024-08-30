@@ -5,7 +5,7 @@ return {
 			c = { "clangtidy" },
 			css = { "stylelint" },
 			html = { "htmlhint" },
-			javascript = { "eslint_d" },
+			javascript = { "oxlint", "quick-lint-js" },
 			python = { "ruff", "pylint" },
 			go = { "golangcilint" },
 			sql = { "sqlfluff" },

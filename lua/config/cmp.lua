@@ -75,21 +75,14 @@ cmp.setup.cmdline(":", {
 
 -- Set up lspconfig.
 require("lspconfig").ruff.setup({
-	init_options = {
-		settings = {},
-	},
 	capabilities = capabilities,
+	init_options = {
+		settings = {
+			interpreter = { ".venv/bin/python" },
+		},
+	},
 })
 require("lspconfig").gopls.setup({
-	capabilities = capabilities,
-})
-require("lspconfig").eslint.setup({
-	on_attach = function(client, bufnr)
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			buffer = bufnr,
-			command = "EslintFixAll",
-		})
-	end,
 	capabilities = capabilities,
 })
 require("lspconfig").lua_ls.setup({
@@ -120,5 +113,8 @@ require("lspconfig").bashls.setup({
 	capabilities = capabilities,
 })
 require("lspconfig").clangd.setup({
+	capabilities = capabilities,
+})
+require("lspconfig").vtsls.setup({
 	capabilities = capabilities,
 })
