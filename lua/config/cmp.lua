@@ -118,3 +118,11 @@ require("lspconfig").clangd.setup({
 require("lspconfig").vtsls.setup({
 	capabilities = capabilities,
 })
+
+require("lspconfig").ruff.setup({
+	capabilities = capabilities,
+})
+
+require("lspconfig").pyright.setup({
+	capabilities = capabilities,
+})

@@ -11,11 +11,11 @@ return {
 				css = { "prettierd" },
 				html = { "prettierd" },
 				js = { "prettierd" },
-
+				sh = { "beautysh", "shftm" },
 				["*"] = { "trim_whitespace" },
 			},
 			format_on_save = {
-				timeout_ms = 500,
+				timeout_ms = 2000,
 				lsp_format = "fallback",
 			},
 		})

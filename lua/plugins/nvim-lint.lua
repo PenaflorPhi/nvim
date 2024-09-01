@@ -6,9 +6,11 @@ return {
 			css = { "stylelint" },
 			html = { "htmlhint" },
 			javascript = { "oxlint", "quick-lint-js" },
-			python = { "ruff", "pylint" },
+			python = { "ruff" },
+			-- python = { "ruff", "pylint" },
 			go = { "golangcilint" },
 			sql = { "sqlfluff" },
+			sh = { "shellcheck" },
 		}
 	end,
 }
