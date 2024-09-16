@@ -30,7 +30,7 @@ vim.api.nvim_set_keymap("n", "<A-Left>", ":bprev<CR>", opts)
 vim.api.nvim_set_keymap("n", "<A-Right>", ":bnext<CR>", opts)
 
 -- Opening and Closing buffers
-vim.api.nvim_set_keymap("n", "<leader>n", ":vnew<CR>", opts) -- Create a new buffer
+vim.api.nvim_set_keymap("n", "<leader>v", ":vnew<CR>", opts) -- Create a new buffer
 vim.api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", opts) -- Delete current buffer
 
 --===================================|
@@ -65,6 +65,12 @@ vim.api.nvim_set_keymap("n", "<A-u>", "zug", opts) -- Undo add to dictionary
 --===================================|
 vim.api.nvim_set_keymap("n", "s", ":HopChar2<CR>", opts) -- Hop to character
 vim.api.nvim_set_keymap("n", "<S-s>", ":HopWord<CR>", opts) -- Hop to word
+
+--===================================|
+-- Diagnostics                       |
+--===================================|
+vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts) -- Format code
+vim.api.nvim_set_keymap("n", "<leader>N", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts) -- Format code
 
 --===================================|
 -- Miscellaneous                     |

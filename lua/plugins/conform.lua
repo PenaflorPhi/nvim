@@ -4,13 +4,14 @@ return {
 		require("conform").setup({
 			formatters_by_ft = {
 				c = { "clang-format" },
-				go = { "gofmt" },
-				lua = { "stylua" },
-				python = { "isort", "ruff", "black" },
-				rust = { "rustfmt", lsp_format = "fallback" },
 				css = { "prettierd" },
+				go = { "gofmt" },
 				html = { "prettierd" },
 				js = { "prettierd" },
+				lua = { "stylua" },
+				md = { "prettierd" },
+				python = { "isort", "ruff", "black" },
+				rust = { "rustfmt", lsp_format = "fallback" },
 				sh = { "beautysh", "shftm" },
 				["*"] = { "trim_whitespace" },
 			},

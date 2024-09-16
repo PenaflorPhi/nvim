@@ -13,4 +13,11 @@ require("mason-lspconfig").setup_handlers({
 			end,
 		})
 	end,
+
+	["stylelint_lsp"] = function()
+		require("lspconfig").stylelint_lsp.setup({
+			filetypes = { "css", "scss" },
+			root_dir = require("lspconfig").util.root_pattern("package.json", ".git"),
+		})
+	end,
 })
