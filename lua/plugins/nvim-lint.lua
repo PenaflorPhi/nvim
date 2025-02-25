@@ -11,6 +11,7 @@ return {
 			go = { "golangci-lint" },
 			html = { "htmlhint" },
 			css = { "stylelint" },
+			sql = { "sqlfluff" },
 		}
 
 		-- Auto-run linting on buffer writes
