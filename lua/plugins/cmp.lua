@@ -1,18 +1,20 @@
 return {
 	"hrsh7th/nvim-cmp",
 	dependencies = {
-		"neovim/nvim-lspconfig",
-		"hrsh7th/cmp-nvim-lsp",
-		"hrsh7th/cmp-buffer",
-		"hrsh7th/cmp-path",
-		"hrsh7th/cmp-cmdline",
-		"hrsh7th/nvim-cmp",
 		"L3MON4D3/LuaSnip",
+		"hrsh7th/cmp-buffer",
+		"hrsh7th/cmp-cmdline",
+		"hrsh7th/cmp-nvim-lsp",
+		"hrsh7th/cmp-path",
+		"hrsh7th/nvim-cmp",
+		"neovim/nvim-lspconfig",
+		"rafamadriz/friendly-snippets",
 		"saadparwaiz1/cmp_luasnip",
 	},
 
 	config = function()
 		local cmp = require("cmp")
+		require("luasnip.loaders.from_vscode").lazy_load()
 		cmp.setup({
 			snippet = {
 				-- REQUIRED - you must specify a snippet engine
@@ -91,7 +93,22 @@ return {
 				})
 			end
 		end
-
 		setup_servers()
+		require("lspconfig")["clangd"].setup({
+			capabilities = capabilities,
+			cmd = { "clangd", "--background-index", "--clang-tidy" },
+		})
+
+		vim.keymap.set("n", "<leader>a", function()
+			vim.lsp.buf.code_action({ apply = true })
+		end, { desc = "Apply LSP Fix" })
+
+		-- Add fixes on save
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = "*",
+			callback = function()
+				vim.lsp.buf.code_action({ apply = true })
+			end,
+		})
 	end,
 }
