@@ -28,6 +28,8 @@ return {
 				-- Enable navic if the server supports documentSymbol
 				if client.server_capabilities.documentSymbolProvider then
 					navic.attach(client, bufnr)
+				else
+					vim.notify("navic: " .. client.name .. " does not support document symbols", vim.log.levels.WARN)
 				end
 			end
 
