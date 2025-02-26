@@ -63,52 +63,5 @@ return {
 			}),
 			matching = { disallow_symbol_nonprefix_matching = false },
 		})
-
-		-- Set up lspconfig.
-		local lspconfig = require("lspconfig")
-
-		-- Enable capabilities for better completion and features
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-		-- Define a function to set up LSP servers easily
-		local function setup_servers()
-			local servers = {
-				"bashls", -- Bash (bash-language-server)
-				"gopls", -- Go
-				"html", -- HTML (html-lsp)
-				"jdtls", -- Java
-				"lua_ls", -- Lua (lua-language-server)
-				"mdx_analyzer", -- MDX (mdx-analyzer)
-				"omnisharp", -- C# (OmniSharp)
-				"pyright", -- Python
-				"ruff", -- Python Linter (Ruff)
-				"sqls", -- SQL
-				"superhtml", -- SuperHTML
-				"ts_ls", -- TypeScript/JavaScript (typescript-language-server)
-			}
-
-			for _, server in ipairs(servers) do
-				lspconfig[server].setup({
-					capabilities = capabilities,
-				})
-			end
-		end
-		setup_servers()
-		require("lspconfig")["clangd"].setup({
-			capabilities = capabilities,
-			cmd = { "clangd", "--background-index", "--clang-tidy" },
-		})
-
-		vim.keymap.set("n", "<leader>a", function()
-			vim.lsp.buf.code_action({ apply = true })
-		end, { desc = "Apply LSP Fix" })
-
-		-- Add fixes on save
-		vim.api.nvim_create_autocmd("BufWritePre", {
-			pattern = "*",
-			callback = function()
-				vim.lsp.buf.code_action({ apply = true })
-			end,
-		})
 	end,
 }
