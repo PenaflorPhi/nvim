@@ -10,21 +10,20 @@ return {
 
 		require("conform").setup({
 			formatters_by_ft = {
-				lua = { "stylua" },
-				-- Conform will run multiple formatters sequentially
-				python = { "isort", "black", "ruff", "ruff_fix", "ruff_format", "ruff_organize_imports" },
-				-- You can customize some of the format options for the filetype (:help conform.format)
-				rust = { "rustfmt", lsp_format = "fallback" },
-				-- Conform will run the first available formatter
-				javascript = { "prettierd", "prettier", stop_after_first = true },
-				bash = { "beautysh" },
-				go = { "gofmt" },
-				c = { "clang-format" },
-				h = { "clang-format" },
-				cpp = { "clang-format" },
-				hpp = { "clang-format" },
-				sql = { "sql_formatter" },
 				["*"] = { "trim_whitespace", "trim_newlines" },
+				bash = { "beautysh" },
+				c = { "clang-format" },
+				cpp = { "clang-format" },
+				go = { "gofmt" },
+				h = { "clang-format" },
+				hpp = { "clang-format" },
+				javascript = { "prettierd", "prettier", stop_after_first = true },
+				lua = { "stylua" },
+				md = { "mdformat" },
+				python = { "isort", "black", "ruff", "ruff_fix", "ruff_format", "ruff_organize_imports" },
+				rust = { "rustfmt", lsp_format = "fallback" },
+				sql = { "sql_formatter" },
+				kotlin = { "ktfmt" },
 			},
 			format_on_save = {
 				-- These options will be passed to conform.format()

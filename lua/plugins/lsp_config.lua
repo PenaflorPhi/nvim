@@ -22,13 +22,15 @@ return {
 				"superhtml", -- HTML
 				"ts_ls", -- TypeScript/JavaScript
 				"clangd",
+				"dockerls",
+				"kotlin_language_server",
 			}
 
 			local function on_attach(client, bufnr)
-				-- Enable navic if the server supports documentSymbol
+				-- Check if the server supports documentSymbolProvider
 				if client.server_capabilities.documentSymbolProvider then
 					navic.attach(client, bufnr)
-				else
+				elseif client.name ~= "ruff" then
 					vim.notify("navic: " .. client.name .. " does not support document symbols", vim.log.levels.WARN)
 				end
 			end

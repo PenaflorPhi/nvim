@@ -4,16 +4,16 @@ vim.diagnostic.config({
 		source = "if_many", -- Show source if there are multiple
 	},
 	float = {
-		source = "always", -- Show the source of diagnostics in floating windows
+		source = "always", -- Always show the diagnostic source in floating windows
 	},
-	signs = true,
+	signs = {
+		active = {
+			{ name = "DiagnosticSignError", text = " " },
+			{ name = "DiagnosticSignWarn", text = " " },
+			{ name = "DiagnosticSignHint", text = " " },
+			{ name = "DiagnosticSignInfo", text = " " },
+		},
+	},
 	underline = true,
 	update_in_insert = false,
 })
-
-local signs = { Error = " ", Warn = " ", Hint = " ", Info = " " }
-
-for type, icon in pairs(signs) do
-	local hl = "DiagnosticSign" .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
