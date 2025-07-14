@@ -38,9 +38,6 @@ return {
 						'--config={"tabWidth": 4, "keywordCase": "upper"}',
 					},
 				},
-				["clang-format"] = {
-					args = { "-style=file:/home/angel/.config/clang/clang-format" },
-				},
 			},
 		})
 

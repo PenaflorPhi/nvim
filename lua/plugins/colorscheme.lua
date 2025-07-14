@@ -1,21 +1,39 @@
-return {
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.cmd([[colorscheme tokyonight-night]])
-		end,
-		enabled = true,
-	},
+local theme = os.getenv("NVIM_THEME") or "tokyonight"
 
-	{
-		"tiagovla/tokyodark.nvim",
-		opts = {},
-		config = function(_, opts)
-			require("tokyodark").setup(opts) -- calling setup is optional
-			vim.cmd([[colorscheme tokyodark]])
-		end,
-		enabled = false,
-	},
+return {
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    config = function()
+      if theme == "tokyonight" then
+        vim.cmd([[colorscheme tokyonight-night]])
+      end
+    end,
+  },
+
+  {
+    "tiagovla/tokyodark.nvim",
+    priority = 1000,
+    config = function()
+      if theme == "tokyodark" then
+        require("tokyodark").setup()
+        vim.cmd([[colorscheme tokyodark]])
+      end
+    end,
+  },
+
+  {
+    "rebelot/kanagawa.nvim",
+    priority = 1000,
+    config = function()
+      if theme == "kanagawa" then
+        require("kanagawa").setup({
+          theme = "wave",
+          background = { dark = "wave", light = "lotus" },
+        })
+        vim.cmd([[colorscheme kanagawa]])
+      end
+    end,
+  },
 }

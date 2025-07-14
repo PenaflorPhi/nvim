@@ -5,7 +5,7 @@ return {
 			-- c = { "clang-tidy" },
 			-- cpp = { "clang-tidy" },
 			css = { "stylelint" },
-			go = { "golangci-lint" },
+			-- go = { "golangcilint" },
 			html = { "htmlhint" },
 			javascript = { "eslint" },
 			lua = { "luacheck" },
