@@ -1,22 +1,29 @@
 return {
 	"numToStr/Comment.nvim",
+	event = "VeryLazy",
 	config = function()
-		require("Comment").setup({
-			-- Disable default mappings so you can use your own
-			mapping = {
+		local comment = require("Comment")
+
+		comment.setup({
+			padding = true,
+			sticky = true,
+			--- Disable all default keybindings
+			mappings = {
 				basic = false,
 				extra = false,
 			},
-			toggler = {
-				line = "<C-/>", -- this will toggle line comments using Ctrl-/
-			},
 		})
-		-- Optionally, you can explicitly set the mapping for visual mode too:
-		vim.keymap.set("n", "<C-/>", function()
+
+		--- Custom keymap for toggling line comment in NORMAL and VISUAL mode
+		local map = vim.keymap.set
+		map("n", "<leader>/", function()
 			require("Comment.api").toggle.linewise.current()
-		end, { noremap = true, silent = true })
-		vim.keymap.set("v", "<C-/>", function()
+		end, { desc = "Toggle comment", noremap = true })
+
+		map("v", "<leader>/", function()
+			local esc = vim.api.nvim_replace_termcodes("<ESC>", true, false, true)
+			vim.api.nvim_feedkeys(esc, "nx", false)
 			require("Comment.api").toggle.linewise(vim.fn.visualmode())
-		end, { noremap = true, silent = true })
+		end, { desc = "Toggle comment (visual)", noremap = true })
 	end,
 }
