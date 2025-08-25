@@ -4,7 +4,7 @@ return {
 		require("lint").linters_by_ft = {
 			-- c = { "clang-tidy" },
 			-- cpp = { "clang-tidy" },
-			css = { "stylelint" },
+			-- css = { "stylelint" },
 			-- go = { "golangcilint" },
 			html = { "htmlhint" },
 			javascript = { "eslint" },
