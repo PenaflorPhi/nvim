@@ -1,67 +1,86 @@
+-- Neovim configuration options
 local options = {
-	title = true, -- 📝 Show the title of the file in the terminal
+    -- ===== UI =====
+    number = true,
+    relativenumber = true,
+    numberwidth = 4,
+    signcolumn = "yes",
+    cursorline = true,
+    colorcolumn = "88",
+    termguicolors = true,     -- Enable 24-bit RGB colors
+    background = "dark",
 
-	hlsearch = true, -- 🔍 Highlight all search results
-	ignorecase = true, -- 🔡 Ignore case in searches
-	incsearch = true, -- 🔍 Show search results as you type
-	linebreak = true, -- ➡️ Break lines at word boundaries
-	modifiable = true, -- 🔄 Allow changes to the buffer
-	smartcase = true, -- 🔠 Ignore case unless search contains uppercase
-	smartindent = true, -- 🧠 Auto-indent new lines smartly
-	wrap = true, -- 📜 Wrap long lines
+    -- ===== Indentation & Text Formatting =====
+    expandtab = true,
+    shiftwidth = 4,
+    tabstop = 4,
+    smartindent = true,
+    linebreak = true,
+    wrap = true,
 
-	number = true, -- 🔢 Show line numbers
-	relativenumber = true, -- 📏 Show relative line numbers
-	numberwidth = 1, -- 🛠️ Set width of the number column
-	signcolumn = "yes", -- ✅ Always show the sign column
+    -- ===== Search =====
+    hlsearch = true,
+    incsearch = true,
+    ignorecase = true,
+    smartcase = true,
 
-	scrolloff = 8, -- 🚶 Keep 8 lines above/below the cursor when scrolling
-	sidescroll = 8, -- ↔️ Horizontal scroll by 8 columns
+    -- ===== Splits & Windows =====
+    splitbelow = true,        -- Horizontal splits open below
+    splitright = true,        -- Vertical splits open to the right
 
-	cmdheight = 1, -- 💬 Height of the command line
-	laststatus = 2, -- 📊 Always show the status line
-	pumheight = 10, -- 📜 Limit popup menu height
-	showcmd = true, -- 🖥️ Show the command in the last line
-	showmode = true, -- 🚥 Show the current mode (e.g., INSERT)
-	showtabline = 2, -- 🗂️ Always show the tabline
+    -- ===== Completion & Command Line =====
+    -- completeopt:
+    --  menu      : show popup menu when there are matches
+    --  menuone   : show the menu even if there’s only one match
+    --  noselect  : don’t preselect; confirm with <CR>/<Tab>
+    --  preview   : show a preview window (often noisy; usually omit)
 
-	background = "dark", -- 🌑 Set background to dark (for dark themes)
-	termguicolors = true, -- 🎨 Enable 24-bit colors in the terminal
-	colorcolumn = "88", -- 📏 Highlight column 88 for line length guide
-	cursorcolumn = true, -- 📍 Highlight the column under the cursor
-	cursorline = true, -- 🖱️ Highlight the line under the cursor
-	mouse = "a", -- 🖱️ Enable mouse in all modes
+    -- To trigger native completion:
+    --  <C-n>/<C-p>   : word completion from buffers
+    --  <C-x><C-o>    : omni completion (language-aware)
+    --  <C-x><C-f>    : file path completion
+    --  <C-x><s>      : spelling suggestions
+    completeopt = { "menuone", "noselect" },
+    pumheight = 10,
+    wildmenu = true,
+    wildmode = "longest:full,full",
 
-	expandtab = true, -- 🛠️ Convert tabs to spaces
-	tabstop = 4, -- ⌨️ Number of spaces a tab counts for
-	shiftwidth = 4, -- ↔️ Number of spaces to use for auto-indents
+    -- ===== Performance & Responsiveness =====
+    updatetime = 50,          -- Time in ms for CursorHold event (affects LSP responsiveness)
+    timeoutlen = 150,         -- Timeout for mapped key sequences (in ms)
+    scrolloff = 8,            -- Keep 8 lines visible above/below the cursor
+    sidescroll = 8,           -- Horizontal scroll by 8 columns
 
-	fileencoding = "utf-8", -- 📄 Use UTF-8 file encoding
-	spell = true, -- 📝 Enable spell checking
-	spelllang = "en,es", -- 🌍 Spell check in English and Spanish
-	spellsuggest = "10", -- 🧙 Limit spell suggestions to 10
+    -- ===== Files =====
+    fileencoding = "utf-8",   -- Default file encoding
+    autoread = true,          -- Auto-reload files changed outside of Neovim
+    swapfile = false,         -- Don’t use swapfiles
+    backup = false,           -- Don’t keep backup files
+    undofile = true,          -- Enable persistent undo across sessions
+    clipboard = "unnamedplus",-- Use system clipboard for all operations
 
-	timeoutlen = 150, -- ⏳ Time to wait for a mapped sequence (in ms)
-	updatetime = 50, -- ⏱️ Faster completion (lower time for CursorHold)
-	lazyredraw = true, -- 💤 Faster macros and scripts
+    -- ===== UI Behavior =====
+    cmdheight = 1,            -- Height of the command line (1 = default)
+    laststatus = 2,           -- Always show the status line
+    showmode = true,          -- Show the current mode (INSERT, etc.)
+    showtabline = 2,          -- Always show the tabline
 
-	backup = false, -- 🚫 Don't create backup files
-	swapfile = false, -- 🚫 Don't use swap files
-	undofile = true, -- 💾 Enable persistent undo
-	clipboard = "unnamedplus", -- 📋 Use the system clipboard
-	autoread = true, -- 🔄 Auto-reload files changed outside Neovim
-
-	splitbelow = true, -- ➗ Horizontal splits go below
-	splitright = true, -- ➗ Vertical splits go to the right
-
-	completeopt = "menu,preview,noselect", -- 🍰 Completion menu settings:
-	-- 🍥 'menu': Show completion options in a popup menu
-	-- 🔍 'preview': Display a preview of the selected completion
-	-- 🚫 'noselect': Don't automatically select the first completion item
-	wildmenu = true, -- 🍥 Better command-line completion
-	wildmode = "longest:full,full", -- 🍥 Command-line completion mode
+    -- ===== Spell Checking =====
+    spell = true,
+    spelllang = { "en", "es" },
+    spellsuggest = "10",
 }
 
-for i, j in pairs(options) do
-	vim.opt[i] = j
+-- Apply options
+for k, v in pairs(options) do
+    vim.opt[k] = v
 end
+
+
+-- == Check Health
+-- Ignore Providers
+vim.g.loaded_perl_provider  = 0
+vim.g.loaded_ruby_provider  = 0
+
+-- Use host's interpreter
+vim.g.python3_host_prog = "/usr/bin/python3"

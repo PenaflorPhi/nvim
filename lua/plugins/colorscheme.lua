@@ -1,21 +1,9 @@
 return {
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-		config = function()
-			vim.cmd([[colorscheme tokyonight-night]])
-		end,
-		enabled = true,
-	},
-
-	{
-		"tiagovla/tokyodark.nvim",
-		opts = {},
-		config = function(_, opts)
-			require("tokyodark").setup(opts) -- calling setup is optional
-			vim.cmd([[colorscheme tokyodark]])
-		end,
-		enabled = false,
-	},
+    -- { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    -- { "ellisonleao/gruvbox.nvim", name="gruvbox", priority = 1000 , config = true },
+    -- { "mcauley-penney/techbase.nvim", name="techbase", priority = 1000 },
+    -- { "folke/tokyonight.nvim", name="tokyonight",lazy = false, priority = 1000 },
+    -- { "navarasu/onedark.nvim", name="onedark", lazy=false, priority = 1000 },
+    { "EdenEast/nightfox.nvim", name="nightfox", lazy=false, priority = 1000 },
+    -- { "Mofiqul/vscode.nvim", name="vscode", lazy=false, priority = 1000 }
 }

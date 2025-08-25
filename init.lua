@@ -1,10 +1,9 @@
--- 🎀 Load core settings
 require("core.options")
 require("core.keymaps")
+require("core.autocmds")
 require("core.lazy")
-require("core.autocommands")
+-- require("core.diagnostics")
 
-require("config.cmp")
-require("config.nvim-lint")
-require("config.mason-lspconfig")
-require("config.lualine")
+
+
+vim.cmd.colorscheme("nightfox")

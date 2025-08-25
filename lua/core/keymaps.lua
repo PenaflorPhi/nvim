@@ -1,87 +1,122 @@
-local opts = { noremap = true, silent = true }
+-- Keymaps
+-- Leader configuration
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
--- Key mappings for general functions
---===================================|
--- File Explorer                     |
---===================================|
--- vim.api.nvim_set_keymap("n", "<leader>e", ":Explore<CR>", opts)
-vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
---===================================|
--- Windows                           |
---===================================|
--- Window navigation
-vim.api.nvim_set_keymap("n", "<S-Left>", "0", opts)
-vim.api.nvim_set_keymap("n", "<S-Right>", "$", opts)
-
--- Switch between windows
-vim.api.nvim_set_keymap("n", "<C-Left>", "<C-w>h", opts)
-vim.api.nvim_set_keymap("n", "<C-Down>", "<C-w>j", opts)
-vim.api.nvim_set_keymap("n", "<C-Up>", "<C-w>k", opts)
-vim.api.nvim_set_keymap("n", "<C-Right>", "<C-w>l", opts)
-
---===================================|
--- Buffers                           |
---===================================|
--- Buffer navigation
-vim.api.nvim_set_keymap("n", "<A-Left>", ":bprev<CR>", opts)
-vim.api.nvim_set_keymap("n", "<A-Right>", ":bnext<CR>", opts)
-
--- Opening and Closing buffers
-vim.api.nvim_set_keymap("n", "<leader>v", ":vnew<CR>", opts) -- Create a new buffer
-vim.api.nvim_set_keymap("n", "<leader>c", ":bd<CR>", opts) -- Delete current buffer
-
---===================================|
--- Text Editing                      |
---===================================|
--- Deleting text
-vim.api.nvim_set_keymap("i", "<C-BS>", "<Esc>bDa", opts) -- Insert mode
-vim.api.nvim_set_keymap("n", "<C-BS>", "bD", opts) -- Normal mode
-
--- Align text and folds
-vim.api.nvim_set_keymap("v", "<S-Tab>", "<gv", opts)
-vim.api.nvim_set_keymap("v", "<Tab>", ">gv", opts)
-vim.api.nvim_set_keymap("v", "<", "<gv", opts)
-vim.api.nvim_set_keymap("v", ">", ">gv", opts)
-vim.api.nvim_set_keymap("v", "z", ":fold<CR>", opts)
-
--- Additional commands
-vim.api.nvim_set_keymap("n", "<C-d>", "ggVGd", opts) -- Delete all lines
-vim.api.nvim_set_keymap("n", "<A-/>", ":nohlsearch<CR>", opts) -- Clear search highlights
-vim.api.nvim_set_keymap("n", "<leader>f", ":Format<CR>", opts) -- Format code
-
---===================================|
--- Dictionary and Spelling           |
---===================================|
-vim.api.nvim_set_keymap("n", "<A-n>", "]s", opts) -- Next misspelled word
-vim.api.nvim_set_keymap("n", "<A-s>", "z=", opts) -- Show suggestions
-vim.api.nvim_set_keymap("n", "<A-a>", "zg", opts) -- Add to dictionary
-vim.api.nvim_set_keymap("n", "<A-u>", "zug", opts) -- Undo add to dictionary
-
---===================================|
--- Hop                               |
---===================================|
-vim.api.nvim_set_keymap("n", "s", ":HopChar2<CR>", opts) -- Hop to character
-vim.api.nvim_set_keymap("n", "<S-s>", ":HopWord<CR>", opts) -- Hop to word
-
---===================================|
--- Diagnostics                       |
---===================================|
-vim.api.nvim_set_keymap("n", "<leader>n", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts) -- Format code
-vim.api.nvim_set_keymap("n", "<leader>N", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts) -- Format code
-
---===================================|
--- Miscellaneous                     |
---===================================|
-vim.api.nvim_set_keymap("n", "<leader>m", ":MarkdownPreviewToggle<CR>", opts)
--- Define the command to spawn a terminal in the current file's directory
-vim.api.nvim_set_keymap("n", "<leader>s", ":lua spawn_terminal()<CR>", opts)
-
--- Function to spawn an external terminal in the current file's directory
-function spawn_terminal()
-	local file_dir = vim.fn.expand("%:p:h") -- Get current file's directory
-	-- Command to spawn an external terminal (adjust for your terminal)
-	vim.fn.jobstart({ "x-terminal-emulator", "-e", "bash", "-c", "cd '" .. file_dir .. "' && exec bash" })
+-- Default options for mappings
+local default_opts = { noremap = true, silent = true }
+local function map(mode, lhs, rhs, desc, opts)
+    local o = opts and vim.tbl_extend("force", default_opts, opts) or default_opts
+    if desc then o.desc = desc end
+    vim.keymap.set(mode, lhs, rhs, o)
 end
+
+-- Helper: smart file explorer toggle (NvimTree if available, else netrw)
+local function toggle_explorer()
+    local ok, api = pcall(require, "nvim-tree.api")
+    if ok then
+        api.tree.toggle()
+    else
+        vim.cmd("Ex")
+    end
+end
+
+-- Helper: toggles for booleans (wrap, relativenumber, spell, etc.)
+local function toggle_opt(optname)
+    vim.opt[optname] = not vim.opt[optname]:get()
+end
+
+-- ====================================================================
+-- File Explorer
+-- ====================================================================
+map("n", "<leader>e", toggle_explorer, "File explorer")
+
+-- ====================================================================
+-- Windows
+-- ====================================================================
+-- Move between splits
+map("n", "<C-Left>",  "<C-w>h", "Go to left window")
+map("n", "<C-Down>",  "<C-w>j", "Go to below window")
+map("n", "<C-Up>",    "<C-w>k", "Go to above window")
+map("n", "<C-Right>", "<C-w>l", "Go to right window")
+
+-- Resize splits
+map("n", "<A-Left>",  "<C-w><", "Shrink width")
+map("n", "<A-Right>", "<C-w>>", "Grow width")
+map("n", "<A-Up>",    "<C-w>+", "Grow height")
+map("n", "<A-Down>",  "<C-w>-", "Shrink height")
+map("n", "<leader>=", "<C-w>=", "Equalize splits")
+
+
+-- ====================================================================
+-- Editing
+-- ====================================================================
+-- Keep half-page jumps centered (restores <C-d>/<C-u> default behavior)
+map("n", "<C-d>", "<C-d>zz", "Half-page down, centered")
+map("n", "<C-u>", "<C-u>zz", "Half-page up, centered")
+
+-- Clear search highlight
+map("n", "<leader>/", ":nohlsearch<CR>", "Clear search highlight")
+
+-- Indent/unindent and stay in visual
+map("v", "<Tab>",   ">gv", "Indent selection")
+map("v", "<S-Tab>", "<gv", "Unindent selection")
+map("v", "<",       "<gv", "Unindent selection")
+map("v", ">",       ">gv", "Indent selection")
+
+-- Move lines up/down
+map("n", "<A-j>", ":m .+1<CR>==", "Move line down")
+map("n", "<A-k>", ":m .-2<CR>==", "Move line up")
+map("i", "<A-j>", "<Esc>:m .+1<CR>==gi", "Move line down")
+map("i", "<A-k>", "<Esc>:m .-2<CR>==gi", "Move line up")
+map("v", "<A-j>", ":m '>+1<CR>gv=gv", "Move block down")
+map("v", "<A-k>", ":m '<-2<CR>gv=gv", "Move block up")
+
+-- Yank to end of line (consistency with C/Y behavior)
+map("n", "Y", "y$", "Yank to end of line")
+
+-- Format (prefers LSP if available; falls back to :Format)
+map({ "n", "v" }, "<leader>f", function()
+    if vim.lsp.buf.format then
+        vim.lsp.buf.format({ async = true })
+    else
+        vim.cmd("Format")
+    end
+end, "Format buffer/range")
+
+-- Word deletion: rely on built-ins
+--   Insert mode: <C-w> deletes previous word; <C-u> deletes to BOL.
+--   Normal mode: 'dw', 'db', etc. are already optimal.
+-- (<C-BS> is unreliable across terminals, so we omit it.)
+
+-- ====================================================================
+-- Spelling / Dictionary
+-- ====================================================================
+map("n", "<leader>sn", "]s",  "Next misspelling")
+map("n", "<leader>sp", "[s",  "Prev misspelling")
+map("n", "<leader>ss", "z=",  "Suggestions")
+map("n", "<leader>sa", "zg",  "Add word")
+map("n", "<leader>su", "zug", "Undo add")
+map("n", "<leader>st", function() toggle_opt("spell") end, "Toggle spell")
+
+-- ====================================================================
+-- Diagnostics
+-- ====================================================================
+map("n", "]d", vim.diagnostic.goto_next, "Next diagnostic")
+map("n", "[d", vim.diagnostic.goto_prev, "Prev diagnostic")
+map("n", "<leader>de", vim.diagnostic.open_float, "Line diagnostics")
+map("n", "<leader>dq", vim.diagnostic.setloclist, "Diagnostics to loclist")
+
+-- ====================================================================
+-- Search quality-of-life
+-- ====================================================================
+map("n", "n", "nzzzv", "Next search result centered")
+map("n", "N", "Nzzzv", "Prev search result centered")
+
+-- ====================================================================
+-- Toggles
+-- ====================================================================
+map("n", "<leader>tw", function() toggle_opt("wrap") end,            "Toggle wrap")
+map("n", "<leader>tr", function() toggle_opt("relativenumber") end,  "Toggle relative numbers")
+map("n", "<leader>tc", function() toggle_opt("cursorline") end,      "Toggle cursorline")
+
