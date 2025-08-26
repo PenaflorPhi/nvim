@@ -112,11 +112,3 @@ map("n", "<leader>dq", vim.diagnostic.setloclist, "Diagnostics to loclist")
 -- ====================================================================
 map("n", "n", "nzzzv", "Next search result centered")
 map("n", "N", "Nzzzv", "Prev search result centered")
-
--- ====================================================================
--- Toggles
--- ====================================================================
-map("n", "<leader>tw", function() toggle_opt("wrap") end,            "Toggle wrap")
-map("n", "<leader>tr", function() toggle_opt("relativenumber") end,  "Toggle relative numbers")
-map("n", "<leader>tc", function() toggle_opt("cursorline") end,      "Toggle cursorline")
-
