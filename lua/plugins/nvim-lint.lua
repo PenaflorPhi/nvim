@@ -8,8 +8,8 @@ return {
 			-- Autosave linters (fast, good signal)
 			lint.linters_by_ft = {
 				python = { "ruff" }, -- fast; style/errors; complement with mypy for types
-				c = { "clang-tidy" }, -- requires compile_commands.json
-				cpp = { "clang-tidy" },
+				c = { "clangtidy" }, -- requires compile_commands.json
+				cpp = { "clangtidy" },
 				lua = { "luac", "luacheck" },
 			}
 

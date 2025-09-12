@@ -30,10 +30,8 @@ return {
 			cmp.setup({
 				snippet = {
 					expand = function(args)
-						-- vsnip
-						vim.fn["vsnip#anonymous"](args.body)
 						-- if you switch engines later:
-						-- require("luasnip").lsp_expand(args.body)
+						require("luasnip").lsp_expand(args.body)
 					end,
 				},
 				mapping = cmp.mapping.preset.insert({
