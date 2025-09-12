@@ -11,6 +11,7 @@ return {
 				c = { "clangtidy" }, -- requires compile_commands.json
 				cpp = { "clangtidy" },
 				lua = { "luac", "luacheck" },
+				cmake = { "cmakelint" },
 			}
 
 			-- Optional heavy/secondary linters (manual trigger)
