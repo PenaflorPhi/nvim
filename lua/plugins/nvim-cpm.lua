@@ -110,6 +110,7 @@ return {
 				"yamlls",
 				"dockerls",
 				"docker_compose_language_service",
+				"neocmake",
 				"taplo",
 			}
 
