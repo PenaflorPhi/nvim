@@ -112,6 +112,7 @@ return {
 				"docker_compose_language_service",
 				"neocmake",
 				"taplo",
+				"glsl_analyzer",
 			}
 
 			local function on_attach(_, _)
