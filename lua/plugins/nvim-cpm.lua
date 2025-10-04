@@ -61,8 +61,7 @@ return {
 				}),
 				sources = cmp.config.sources({
 					{ name = "nvim_lsp" },
-					{ name = "vsnip" },
-					-- { name = "ai" },
+					{ name = "luasnip" }, -- was "vsnip"
 					{ name = "path" },
 				}, {
 					{ name = "buffer" },
@@ -92,53 +91,105 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = { "hrsh7th/cmp-nvim-lsp" },
 		config = function()
-			local lspconfig = require("lspconfig")
+			-- lazy spec: remove "neovim/nvim-lspconfig"
+			-- keep cmp-nvim-lsp for capabilities if you want
 			local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-			-- EDIT this list as you like
 			local servers = {
-				"pyright",
-				"clangd",
-				"gopls",
-				"ts_ls",
-				"html",
-				"cssls",
-				"jsonls",
-				"bashls",
-				"lua_ls",
-				"marksman",
-				"yamlls",
-				"dockerls",
-				"docker_compose_language_service",
-				"neocmake",
-				"taplo",
-				"glsl_analyzer",
+				clangd = { cmd = { "clangd" }, roots = { ".git", "compile_commands.json" } },
+				pyright = {
+					cmd = { "pyright-langserver", "--stdio" },
+					roots = { ".git", "pyproject.toml", "setup.py" },
+				},
+				gopls = { cmd = { "gopls" }, roots = { ".git", "go.work", "go.mod" } },
+				tsserver = {
+					cmd = { "typescript-language-server", "--stdio" },
+					roots = { "package.json", "tsconfig.json", ".git" },
+				},
+				html = { cmd = { "vscode-html-language-server", "--stdio" }, roots = { ".git" } },
+				cssls = { cmd = { "vscode-css-language-server", "--stdio" }, roots = { ".git" } },
+				jsonls = { cmd = { "vscode-json-language-server", "--stdio" }, roots = { ".git" } },
+				bashls = { cmd = { "bash-language-server", "start" }, roots = { ".git" } },
+				lua_ls = { cmd = { "lua-language-server" }, roots = { ".git" } },
+				marksman = { cmd = { "marksman", "server" }, roots = { ".git" } },
+				yamlls = { cmd = { "yaml-language-server", "--stdio" }, roots = { ".git" } },
+				dockerls = { cmd = { "docker-langserver", "--stdio" }, roots = { ".git" } },
+				taplo = { cmd = { "taplo", "lsp", "stdio" }, roots = { ".git", "taplo.toml" } },
+				-- add others as needed
 			}
 
-			local function on_attach(_, _)
-				-- add per-buffer LSP keymaps here if you want
+			local function root_from(bufnr, markers)
+				return vim.fs.root(bufnr or 0, markers) or vim.loop.cwd()
 			end
 
-			for _, server in ipairs(servers) do
-				lspconfig[server].setup({
-					capabilities = capabilities,
-					on_attach = on_attach,
-				})
+			local function on_attach(client, bufnr)
+				-- your keymaps go here
 			end
 
-			-- lua_ls: friendlier defaults for Neovim config (optional)
-			if lspconfig.lua_ls then
-				lspconfig.lua_ls.setup({
-					capabilities = capabilities,
-					on_attach = on_attach,
-					settings = {
-						Lua = {
-							diagnostics = { globals = { "vim" } },
-							workspace = { checkThirdParty = false },
-						},
-					},
-				})
-			end
+			-- start LSP per buffer by filetype
+			vim.api.nvim_create_autocmd("FileType", {
+				pattern = {
+					"c",
+					"cpp",
+					"objc",
+					"objcpp",
+					"cuda",
+					"python",
+					"go",
+					"typescript",
+					"javascript",
+					"html",
+					"css",
+					"json",
+					"sh",
+					"lua",
+					"markdown",
+					"yaml",
+					"dockerfile",
+					"toml",
+				},
+				callback = function(args)
+					local ft = args.match
+					local map = {
+						c = "clangd",
+						cpp = "clangd",
+						objc = "clangd",
+						objcpp = "clangd",
+						cuda = "clangd",
+						python = "pyright",
+						go = "gopls",
+						typescript = "tsserver",
+						javascript = "tsserver",
+						html = "html",
+						css = "cssls",
+						json = "jsonls",
+						sh = "bashls",
+						lua = "lua_ls",
+						markdown = "marksman",
+						yaml = "yamlls",
+						dockerfile = "dockerls",
+						toml = "taplo",
+					}
+					local name = map[ft]
+					local s = name and servers[name]
+					if not s then
+						return
+					end
+					vim.lsp.start({
+						name = name,
+						cmd = s.cmd, -- required
+						root_dir = root_from(args.buf, s.roots),
+						on_attach = on_attach,
+						capabilities = capabilities,
+						settings = name == "lua_ls" and {
+							Lua = {
+								diagnostics = { globals = { "vim" } },
+								workspace = { checkThirdParty = false },
+							},
+						} or nil,
+					})
+				end,
+			})
 		end,
 	},
 }
