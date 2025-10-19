@@ -179,3 +179,25 @@ end, "LSP: Signature help")
 
 -- OPTIONAL: if you often want 'K' (shift-k) to hover (traditional Neovim lore)
 -- map("n", "K", vim.lsp.buf.hover, "LSP: Hover (K)")
+--
+-- === Copilot ===
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+
+-- Accept with <leader><Tab>
+map(
+	"i",
+	"<leader><Tab>",
+	'copilot#Accept("\\<CR>")',
+	"Copilot: Accept",
+	{ expr = true, silent = true, replace_keycodes = false }
+)
+
+-- Trigger suggestion (pick one that your terminal passes through)
+map("i", "<C-j>", "copilot#Suggest()", "Copilot: Suggest", { expr = true, silent = true })
+-- or: map("i", "<C-Space>", 'copilot#Suggest()', "Copilot: Suggest", { expr = true, silent = true })
+
+-- Cycle and dismiss
+map("i", "<C-n>", "copilot#Next()", "Copilot: Next", { expr = true, silent = true })
+map("i", "<C-p>", "copilot#Previous()", "Copilot: Previous", { expr = true, silent = true })
+map("i", "<C-]>", "copilot#Dismiss()", "Copilot: Dismiss", { expr = true, silent = true })
