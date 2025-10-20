@@ -76,15 +76,6 @@ map("v", "<A-k>", ":m '<-2<CR>gv=gv", "Move block up")
 -- Yank to end of line (consistency with C/Y behavior)
 map("n", "Y", "y$", "Yank to end of line")
 
--- Format (prefers LSP if available; falls back to :Format)
-map({ "n", "v" }, "<leader>f", function()
-	if vim.lsp.buf.format then
-		vim.lsp.buf.format({ async = true })
-	else
-		vim.cmd("Format")
-	end
-end, "Format buffer/range")
-
 -- Word deletion: rely on built-ins
 --   Insert mode: <C-w> deletes previous word; <C-u> deletes to BOL.
 --   Normal mode: 'dw', 'db', etc. are already optimal.
