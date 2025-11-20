@@ -102,10 +102,6 @@ return {
 					roots = { ".git", "pyproject.toml", "setup.py" },
 				},
 				gopls = { cmd = { "gopls" }, roots = { ".git", "go.work", "go.mod" } },
-				tsserver = {
-					cmd = { "typescript-language-server", "--stdio" },
-					roots = { "package.json", "tsconfig.json", ".git" },
-				},
 				html = { cmd = { "vscode-html-language-server", "--stdio" }, roots = { ".git" } },
 				cssls = { cmd = { "vscode-css-language-server", "--stdio" }, roots = { ".git" } },
 				jsonls = { cmd = { "vscode-json-language-server", "--stdio" }, roots = { ".git" } },
