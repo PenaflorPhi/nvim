@@ -1,6 +1,6 @@
 -- Neovim 0.11+ (no lspconfig)
 local function clangd_on_attach(client, bufnr)
-	local inlay_enabled = true
+	local inlay_enabled = false
 	if vim.lsp.inlay_hint then
 		vim.lsp.inlay_hint.enable(inlay_enabled, { bufnr = bufnr })
 	end

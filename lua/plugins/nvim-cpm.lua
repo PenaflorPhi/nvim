@@ -165,6 +165,7 @@ return {
 						yaml = "yamlls",
 						dockerfile = "dockerls",
 						toml = "taplo",
+						rs = "rust-analyzer",
 					}
 					local name = map[ft]
 					local s = name and servers[name]

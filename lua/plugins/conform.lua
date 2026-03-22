@@ -9,6 +9,8 @@ return {
 			c = { "clang-format" },
 			cpp = { "clang-format" },
 			cmake = { "cmake_format" },
+			rs = { "rustfmt" },
+			toml = { "tombi" },
 		},
 		-- Use function form so it actually sets up the BufWritePre autocmd
 		format_on_save = function(_)
