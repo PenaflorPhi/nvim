@@ -5,39 +5,37 @@ return {
 		config = function()
 			local lint = require("lint")
 
-			-- Autosave linters (fast, good signal)
+			-- Fix Mason path for luacheck
+			lint.linters.luacheck = vim.tbl_deep_extend("force", lint.linters.luacheck, {
+				cmd = vim.fn.stdpath("data") .. "/mason/bin/luacheck",
+			})
+
 			lint.linters_by_ft = {
-				python = { "ruff" }, -- fast; style/errors; complement with mypy for types
-				c = { "clangtidy" }, -- requires compile_commands.json
+				python = { "ruff" },
+				c = { "clangtidy" },
 				cpp = { "clangtidy" },
 				lua = { "luac", "luacheck" },
 				cmake = { "cmakelint" },
 			}
 
-			-- Optional heavy/secondary linters (manual trigger)
-			-- They'll run in addition to the auto ones when you call :LintAllHeavy
 			local heavy_by_ft = {
 				python = { "pylint" },
 				c = { "cppcheck" },
 				cpp = { "cppcheck" },
 			}
 
-			-- Example: tweak args if you need (uncomment & adjust)
-			-- lint.linters.cppcheck.args = { "--enable=warning,style,performance,portability", "--std=c11", "--template=gcc", "-" }
-			-- Debounced runner to avoid thrashing
 			local timer = vim.uv.new_timer()
 			local function debounced_try_lint(bufnr, ms)
 				timer:stop()
 				timer:start(ms or 150, 0, function()
 					vim.schedule(function()
 						if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buftype == "" then
-							lint.try_lint() -- uses linters_by_ft
+							lint.try_lint()
 						end
 					end)
 				end)
 			end
 
-			-- Auto lint on save / when leaving insert
 			local grp = vim.api.nvim_create_augroup("nvim-lint-autocmd", { clear = true })
 			vim.api.nvim_create_autocmd({ "BufWritePost", "InsertLeave", "TextChanged" }, {
 				group = grp,
@@ -46,10 +44,10 @@ return {
 				end,
 			})
 
-			-- Commands: on-demand heavy pass and quick pass
 			vim.api.nvim_create_user_command("LintNow", function()
 				lint.try_lint()
 			end, {})
+
 			vim.api.nvim_create_user_command("LintAllHeavy", function()
 				local ft = vim.bo.filetype
 				local list = heavy_by_ft[ft]

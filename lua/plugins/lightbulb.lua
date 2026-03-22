@@ -3,4 +3,5 @@ return {
 	opts = {
 		autocmd = { enabled = true },
 	},
+	event = { "BufReadPost", "BufNewFile" },
 }
