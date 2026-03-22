@@ -104,7 +104,10 @@ end
 vim.api.nvim_create_autocmd("BufWinLeave", {
 	pattern = "*",
 	callback = function()
-		if is_normal_buffer() then
+		local buf = vim.api.nvim_get_current_buf()
+		local buftype = vim.bo[buf].buftype
+		local filename = vim.api.nvim_buf_get_name(buf)
+		if buftype == "" and filename ~= "" then
 			vim.cmd("mkview")
 		end
 	end,
