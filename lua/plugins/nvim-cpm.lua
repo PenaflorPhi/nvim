@@ -13,28 +13,9 @@ return {
 			"L3MON4D3/LuaSnip",
 			"saadparwaiz1/cmp_luasnip",
 			"rafamadriz/friendly-snippets",
-			-- ai
-			"tzachar/cmp-ai",
-			"nvim-lua/plenary.nvim",
 		},
 		config = function()
 			local cmp = require("cmp")
-
-			-- AI {{{
-			require("cmp_ai.config"):setup({
-				max_lines = 100,
-				provider = "Ollama",
-				provider_options = {
-					model = "qwen2.5-coder:14b",
-					stream = true,
-					options = {
-						temperature = 0,
-						num_predict = 128,
-					},
-				},
-				run_on_every_keystroke = true,
-			})
-			-- }}}
 
 			-- Helpers {{{
 			local function has_words_before()
@@ -87,7 +68,6 @@ return {
 
 				-- Sources
 				sources = cmp.config.sources({
-					{ name = "ai", group_index = 1, priority = 100 },
 					{ name = "nvim_lsp" },
 					{ name = "luasnip" },
 					{ name = "path" },
