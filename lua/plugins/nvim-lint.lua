@@ -16,6 +16,10 @@ return {
 				cpp = { "clangtidy" },
 				lua = { "luac", "luacheck" },
 				cmake = { "cmakelint" },
+				javascript = { "eslint_d" },
+				typescript = { "eslint_d" },
+				html = { "eslint_d" },
+				css = { "stylelint" },
 			}
 
 			local heavy_by_ft = {
