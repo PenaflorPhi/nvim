@@ -4,15 +4,15 @@ return {
 		"hrsh7th/nvim-cmp",
 		event = { "InsertEnter", "CmdlineEnter" },
 		dependencies = {
+			-- snippets
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
+			"rafamadriz/friendly-snippets",
 			-- sources
 			"hrsh7th/cmp-nvim-lsp",
 			"hrsh7th/cmp-buffer",
 			"hrsh7th/cmp-path",
 			"hrsh7th/cmp-cmdline",
-			-- snippets
-			"L3MON4D3/LuaSnip",
-			"saadparwaiz1/cmp_luasnip",
-			"rafamadriz/friendly-snippets",
 		},
 		config = function()
 			local cmp = require("cmp")
@@ -37,7 +37,7 @@ return {
 					end,
 				},
 
-				experimentasl = {
+				experimental = {
 					ghost_text = true,
 				},
 
@@ -81,6 +81,7 @@ return {
 				-- },
 			})
 			-- }}}
+			require("luasnip.loaders.from_vscode").lazy_load()
 
 			-- Cmdline {{{
 			cmp.setup.cmdline({ "/", "?" }, {
