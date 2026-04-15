@@ -16,6 +16,19 @@ return {
 			rs = { "rustfmt" },
 			toml = { "tombi" },
 		},
+		formatters = {
+			ruff_fix = {
+				args = {
+					"check",
+					"--fix",
+					"--ignore=F401",
+					"--force-exclude",
+					"--stdin-filename",
+					"$FILENAME",
+					"-",
+				},
+			},
+		},
 		-- Use function form so it actually sets up the BufWritePre autocmd
 		format_on_save = function(_)
 			return { timeout_ms = 500, lsp_fallback = true }

@@ -124,19 +124,37 @@ end, "Toggle spell check")
 local diag_float = { border = "rounded", source = "if_many" }
 
 map("n", "]d", function()
-	vim.diagnostic.goto_next({ float = diag_float })
+	vim.diagnostic.jump({
+		count = 1,
+		on_jump = function()
+			vim.diagnostic.open_float()
+		end,
+	})
 end, "Next diagnostic")
 map("n", "[d", function()
-	vim.diagnostic.goto_prev({ float = diag_float })
+	vim.diagnostic.jump({
+		count = -1,
+		on_jump = function()
+			vim.diagnostic.open_float()
+		end,
+	})
 end, "Prev diagnostic")
 map("n", "<leader>n", function()
-	vim.diagnostic.goto_next({ float = diag_float })
+	vim.diagnostic.jump({
+		count = 1,
+		on_jump = function()
+			vim.diagnostic.open_float()
+		end,
+	})
 end, "Diagnostics: Next")
 map("n", "<leader>N", function()
-	vim.diagnostic.goto_prev({ float = diag_float })
+	vim.diagnostic.jump({
+		count = -1,
+		on_jump = function()
+			vim.diagnostic.open_float()
+		end,
+	})
 end, "Diagnostics: Prev")
-map("n", "<leader>de", vim.diagnostic.open_float, "Line diagnostics float")
-map("n", "<leader>dq", vim.diagnostic.setloclist, "Send diagnostics to loclist")
 
 -- =============================================================================
 -- Telescope
